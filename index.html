@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+<nav class="bg-gray-800 flex"> 
+ 
+  <div class="relative h-16 items-center justify-start m-4 ">
+     <video autoplay loop muted plays-inline class="h-16 w-auto rounded-full " src="weather icon.webm" alt="Your Company">
+  </div>
+  <div class="w-[80vw] flex justify-center items-center  ">
+  <h1 id="title">WEATHER APP</h1> 
+   </div>
+</nav>
+<section id="hero" class="flex justify-center h-svh">
+      <div class="container  w-[400px] h-[500px] p-5 rounded-2xl relative justify-center m-10  ">
+        <div class="search-box w-[100%] h-[50px] relative flex items-center ">
+          <button id="search-location" class='bx bxs-map text-white absolute left-[10px] z-10'></button>
+          <input class="absolute w-[100%] h-[100%] bg-transparent" type="text" placeholder="enter your location">
+          <button id="search-btn" class="bx bx-search absolute right-0 w-[40px] h-[100%] bg-transparent  text-white "></button>
+        </div>
+        <div class="weather-box text-center">
+          <div class="box">
+            <div class="info-weather">
+              <div class="weather">
+                <img class="w-[60%] " src="cloud.png">
+                <p class="temperature relative text-[64px]">16<span>°C</span></p>
+                <p class="description">Cloudy</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="weather-details">
+          <div class="humidity">
+            <i class="bx bx-water"></i>
+            <div class="text">
+              <div class="info-humidity">
+                <span>0%</span>
+              </div>
+              <p>Humidity</p>
+            </div>
+          </div>
+          <div class="wind">
+            <i class="bx bx-wind"></i>
+            <div class="text">
+              <div class="info-wind">
+                <span>0km/hr</span>
+              </div>
+              <p>Wind Speed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+      
+</body>
+</html>
