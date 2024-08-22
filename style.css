@@ -69,6 +69,12 @@
    padding:0px 30px 0px 5px;
    cursor: pointer;
 }
+.recent-search{
+   display: none;
+}
+.container:focus-within .recent-search{
+   display: block;
+}
 .weather-box{
    margin: 30px 0;
 }
