@@ -6,10 +6,10 @@ const weatherDetails = document.querySelector(".weather-details");
 const error404 = document.querySelector(".not-found");
 const recentSearchesContainer = document.querySelector('.recentList');
 const recentSearchDiv = document.querySelector('.recent-search');
-
+const cardsContainer = document.querySelector(".cards");
 const APIkey = 'a9342e881b75f312e8286565cb413e7b';
 
-// Update the weather information on the UI
+// updating the weather information 
 function updateWeatherUI(json) {
     const image = document.querySelector('.weather-box img');
     const temperature = document.querySelector('#temp');
@@ -17,6 +17,8 @@ function updateWeatherUI(json) {
     const humidity = document.querySelector('#s');
     const wind = document.querySelector('#s1');
     const locationName = document.querySelector('#location-name');
+
+   // console.log('Weather Data:', json); // Debugging line
 
     switch (json.weather[0].main) {
         case 'Clear':
@@ -47,11 +49,13 @@ function updateWeatherUI(json) {
     locationName.innerHTML = `${json.name}, ${json.sys.country}`; 
 }
 
-// Fetch weather data from the API
+// fetching weather data from the API
 function fetchWeather(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIkey}&units=metric`)
         .then(response => response.json())
         .then(json => {
+           // console.log('API Response:', json); // Debugging line
+            //i have added classlist remove add to hide the image when shoeing error and vice versa
             if (json.cod === '404') {
                 container.style.height = '400px';
                 weatherBox.classList.remove('active');
@@ -64,57 +68,105 @@ function fetchWeather(city) {
             weatherDetails.classList.add('active');
             error404.classList.remove('active');
             updateWeatherUI(json);
+            fetchWeatherForecast(city); // fetch weather forecast
         });
 }
 
-// Get recent searches from localStorage
+// fetching 5-day weather forecast from the API
+function fetchWeatherForecast(city) {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${APIkey}&units=metric`)
+        .then(response => response.json())
+        .then(json => {
+          //  console.log('Forecast Data:', json); // Debugging line
+            updateForecastUI(json.list); // updating the weather
+        });
+}
+
+// Update the forecast cards with 5-day data
+function updateForecastUI(forecastList) {
+    cardsContainer.innerHTML = ''; // Clear existing cards
+
+    // filter data to get one forecast per day (usually every 3 hours) //
+    const dailyForecasts = forecastList.filter((_, index) => index % 8 === 0).slice(0, 5);
+   // using element creation and putting cards in the html
+    dailyForecasts.forEach((forecast, index) => {
+        const card = document.createElement('div');
+        card.className = `hover:text-[#0fb8eb] weather-card h-[20vh] w-[20%] bg-slate-${500 + (index * 100)} relative flex flex-col items-center justify-center`;
+
+        const date = new Date(forecast.dt * 1000).toLocaleDateString();
+        const temp = `${parseInt(forecast.main.temp)}°C`;
+        const humidity = `${forecast.main.humidity}%`;
+        const wind = `${parseInt(forecast.wind.speed)} km/h`;
+            //card data which is going to be shown
+        card.innerHTML = `
+            <p class="date p-1 text-center">${date}</p>
+            <p class="temp text-center">${temp}</p>
+            <div class="humidity flex">
+                <i class="bx bx-water"></i>
+                <div class="info-humidity">
+                    <span class="humidity-value">${humidity}</span>
+                </div>
+            </div>
+            <div class="wind flex">
+                <i class="bx bx-wind"></i>
+                <div class="info-wind">
+                    <span class="wind-value">${wind}</span>
+                </div>
+            </div>
+        `;
+
+        cardsContainer.appendChild(card);
+    });
+}
+
+// getting recent searches from localStorage
 function getRecentSearches() {
     return JSON.parse(localStorage.getItem('recentSearches')) || [];
 }
 
-// Save recent searches to localStorage
+// saving recent searches to localStorage
 function saveRecentSearches(searches) {
     localStorage.setItem('recentSearches', JSON.stringify(searches));
 }
 
-// Update recent searches list in the UI
+// updating recent searches list
 function updateRecentSearchesUI() {
-    recentSearchesContainer.innerHTML = ''; // Clear existing list
+    recentSearchesContainer.innerHTML = ''; // clearing existing list
     const searches = getRecentSearches();
     searches.forEach(search => {
         const item = document.createElement('div');
         item.className = 'recentItem flex items-center p-1';
         item.innerHTML = `<button><i class='bx bx-history pr-[10px] text-[20px]'></i></button><p>${search}</p>`;
-        // Ensure the click event is added to the new item
+    
         item.querySelector('button').addEventListener('click', () => fetchWeather(search));
         recentSearchesContainer.appendChild(item);
     });
 }
 
-// Add a new search to the recent searches
+// adding a rectent search city to input to fetch data
 function addRecentSearch(city) {
     const searches = getRecentSearches();
     if (searches.includes(city)) {
-        // Move the city to the top if it already exists
+        // move the city to the top if it already exists
         searches.splice(searches.indexOf(city), 1);
     }
     searches.unshift(city);
     if (searches.length > 5) {
-        searches.pop(); // Keep only the latest 5 searches
+        searches.pop(); // keeping only the latest 5 searches
     }
     saveRecentSearches(searches);
     updateRecentSearchesUI();
 }
 
-// Handle the search button click
+
 searchBtn.addEventListener('click', () => {
     const city = document.querySelector('.search-box input').value.trim();
     if (city === '') return;
     fetchWeather(city);
-    addRecentSearch(city); // Add the new search to the list
+    addRecentSearch(city); // adding the new search to the list
 });
 
-// Handle the search location button click (geolocation)
+// giving functionality to location button so to fetch current location
 searchLocationBtn.addEventListener('click', () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -135,7 +187,8 @@ searchLocationBtn.addEventListener('click', () => {
                     weatherDetails.classList.add('active');
                     error404.classList.remove('active');
                     updateWeatherUI(json);
-                    addRecentSearch(json.name); // Add the location to the recent searches
+                    fetchWeatherForecast(json.name); // fetching the forecast for the current location
+                    addRecentSearch(json.name); // adding the location to the recent searches
                 });
         }, () => {
             alert('Unable to retrieve your location.');
@@ -145,5 +198,5 @@ searchLocationBtn.addEventListener('click', () => {
     }
 });
 
-// Initialize the recent searches list on page load
+// making sure the recent search remains on the page load
 updateRecentSearchesUI();

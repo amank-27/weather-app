@@ -1,82 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="output.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mausam</title>
+  <link rel="shortcut icon" href="weather favicon.png" type="image/x-icon">
+  <link href="output.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<body> 
-<nav class="bg-gray-800 flex"> 
- 
-  <div class="relative h-16 items-center justify-start m-4 ">
-     <video autoplay loop muted plays-inline class="h-16 w-auto rounded-full " src="weather icon.webm" alt="Your Company">
-  </div>
-  <div class="w-[80vw] flex justify-center items-center  ">
-  <h1 id="title">WEATHER APP</h1> 
-   </div>
-</nav>
-<section id="hero" class="flex justify-center h-svh">
-      <div class="container  w-[400px] h-[500px] p-5 rounded-2xl relative justify-center m-10  ">
-        <div class="search-box w-[100%] h-[50px] relative flex items-center ">
-          <button id="search-location" class='bx bxs-map text-white absolute left-[10px] z-10'></button>
-          <input class="absolute w-[100%] h-[100%] bg-transparent" type="text" placeholder="enter your location">
-          <button id="search-btn" class="bx bx-search absolute right-0 w-[40px] h-[100%] bg-transparent  text-white "></button>
-        </div>
-        <div class="recent-search h-[200px] w-[88%]  absolute z-[10] rounded-md bg-transparent p-1 m-1 border">
-          <h4 class="">RECENT SEARCH </h4>
-          <div class="recentList">
-            <div class="recentItem flex items-center p-1">
-              <button><i class='bx bx-history pr-[10px] text-[20px]'></i></button>
-              <p>Aman</p>
-             </div>
-          </div>
-        </div>
-        <div class="weather-box text-center">
-         
-         <div class="box">
-         
-         <p id="location-name" class="text-[24px] font-semibold"></p> <!--name insert yha pe -->
-            <div class="info-weather">
-              <div class="weather">
-                <img class="w-[60%] " src="cloud.png">
-                <p id="temp" class="temperature relative text-[64px]">0<span>°C</span></p>
-                <p id="info" class="description">Cloudy</p>
-              </div>
-            </div>
-          </div>
-        </div>
+<body>
+  <!--start of navbar-->
+  <nav class="bg-gray-800 flex">
 
-        <div class="weather-details">
-          <div class="humidity">
-            <i class="bx bx-water"></i>
-            <div class="text">
-              <div class="info-humidity">
-                <span id="s">0%</span>
-              </div>
-              <p>Humidity</p>
-            </div>
-          </div>
-          <div class="wind">
-            <i class="bx bx-wind"></i>
-            <div class="text">
-              <div class="info-wind">
-                <span id="s1">0km/hr</span>
-              </div>
-              <p>Wind Speed</p>
-            </div>
-          </div>
-        </div>
-        <div class="not-found absolute top-0 left-0 w-[100%] text-center mt-[110px]">
-          <div class="box">
-            <img class="w-[65%]" src="404.png" alt="">
-            <p class="text-[22px] font-medium mt-[12px] ">Oops! Location not found!</p>
+    <div class="relative h-16 items-center justify-start m-4 ">
+      <video autoplay loop muted plays-inline class="h-16 w-auto rounded-full " src="weather icon.webm"
+        alt="Your Company">
+    </div>
+    <div class="w-[80vw] flex justify-center items-center  ">
+      <h1 id="title">WEATHER APP</h1>
+    </div>
+  </nav>
+  <!--start of main section where main card is made-->
+  <section id="hero" class="flex justify-center h-svh ">
+    <div class="container  w-[400px] h-[500px] p-5 rounded-2xl relative justify-center m-[20px]  ">
+      <div class="search-box w-[100%] h-[50px] relative flex items-center ">
+        <button id="search-location" class='bx bxs-map text-white absolute left-[10px] z-10'></button>
+        <input class="absolute w-[100%] h-[100%] bg-transparent" type="text" placeholder="enter your location">
+        <button id="search-btn"
+          class="bx bx-search absolute right-0 w-[40px] h-[100%] bg-transparent  text-white "></button>
+      </div>
+      <div class="recent-search h-[200px] w-[88%]  absolute z-[10] rounded-md bg-transparent p-1 m-1 border">
+        <h4 class="">RECENT SEARCH </h4>
+        <div class="recentList">
+          <div class="recentItem flex items-center p-1">
+            <button><i class='bx bx-history pr-[10px] text-[20px]'></i></button>
+            <p>Aman</p>
           </div>
         </div>
       </div>
+      <div class="weather-box text-center">
+
+        <div class="box">
+           <!--city name insert yha pe -->
+          <p id="location-name" class="text-[24px] font-semibold"></p> 
+          <div class="info-weather">
+            <div class="weather">
+              <img class="w-[60%] " src="cloud.png">
+              <p id="temp" class="temperature relative text-[64px]">0<span>°C</span></p>
+              <p id="info" class="description">Cloudy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="weather-details">
+        <div class="humidity">
+          <i class="bx bx-water"></i>
+          <div class="text">
+            <div class="info-humidity">
+              <span id="s">0%</span>
+            </div>
+            <p>Humidity</p>
+          </div>
+        </div>
+        <div class="wind">
+          <i class="bx bx-wind"></i>
+          <div class="text">
+            <div class="info-wind">
+              <span id="s1">0km/hr</span>
+            </div>
+            <p>Wind Speed</p>
+          </div>
+        </div>
+      </div>
+      <div class="not-found absolute top-0 left-0 w-[100%] text-center mt-[110px]">
+        <div class="box">
+          <img class="w-[65%]" src="404.png" alt="">
+          <p class="text-[22px] font-medium mt-[12px] ">Oops! Location not found!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--start of 2nd section where 5 day card data is being stored-->
+  <section class="cards h-[20vh] w-[100%] flex relative">
+    <div id="card1" class="hover:text-[#0fb8eb] weather-card h-[20vh] w-[20%] bg-slate-500 relative flex flex-col items-center justify-center">
+        <p class="date p-1 text-center">Date</p>
+        <p class="temp text-center">0<span>°C</span></p>
+        <div class="humidity flex">
+            <i class="bx bx-water"></i>
+            <div class="info-humidity">
+                <span class="humidity-value">0%</span>
+            </div>
+        </div>
+        <div class="wind flex">
+            <i class="bx bx-wind"></i>
+            <div class="info-wind">
+                <span class="wind-value">0km/h</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="card2" class="hover:text-[#0fb8eb] weather-card h-[20vh] w-[20%] bg-slate-600 relative flex flex-col items-center justify-center">
+        <p class="date p-1 text-center">Date</p>
+        <p class="temp text-center">0<span>°C</span></p>
+        <div class="humidity flex">
+            <i class="bx bx-water"></i>
+            <div class="info-humidity">
+                <span class="humidity-value">0%</span>
+            </div>
+        </div>
+        <div class="wind flex">
+            <i class="bx bx-wind"></i>
+            <div class="info-wind">
+                <span class="wind-value">0km/h</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="card3" class="hover:text-[#0fb8eb] weather-card h-[20vh] w-[20%] bg-slate-700 relative flex flex-col items-center justify-center">
+      <p class="date p-1 text-center">Date</p>
+      <p class="temp text-center">0<span>°C</span></p>
+      <div class="humidity flex">
+          <i class="bx bx-water"></i>
+          <div class="info-humidity">
+              <span class="humidity-value">0%</span>
+          </div>
+      </div>
+      <div class="wind flex">
+          <i class="bx bx-wind"></i>
+          <div class="info-wind">
+              <span class="wind-value">0km/h</span>
+          </div>
+      </div>
+  </div>
+ 
+  <div id="card4" class="hover:text-[#0fb8eb] weather-card h-[20vh] w-[20%] bg-slate-800 relative flex flex-col items-center justify-center">
+      <p class="date p-1 text-center">Date</p>
+      <p class="temp text-center">0<span>°C</span></p>
+      <div class="humidity flex">
+          <i class="bx bx-water"></i>
+          <div class="info-humidity">
+              <span class="humidity-value">0%</span>
+          </div>
+      </div>
+      <div class="wind flex">
+          <i class="bx bx-wind"></i>
+          <div class="info-wind">
+              <span class="wind-value">0km/h</span>
+          </div>
+      </div>
+  </div>
+  <div id="card5" class=" hover:text-[#0fb8eb] weather-card h-[20vh] w-[20%] bg-slate-900 relative flex flex-col items-center justify-center">
+    <p class="date p-1 text-center">Date</p>
+    <p class="temp text-center">0<span>°C</span></p>
+    <div class="humidity flex">
+        <i class="bx bx-water"></i>
+        <div class="info-humidity">
+            <span class="humidity-value">0%</span>
+        </div>
+    </div>
+    <div class="wind flex">
+        <i class="bx bx-wind"></i>
+        <div class="info-wind">
+            <span class="wind-value">0km/h</span>
+        </div>
+    </div>
+</div>
 </section>
-     <script src="index.js"></script> 
+
+  <script src="index.js"></script>
 </body>
+
 </html>
